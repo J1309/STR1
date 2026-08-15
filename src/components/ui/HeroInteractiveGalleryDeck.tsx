@@ -116,10 +116,10 @@ export default function HeroInteractiveGalleryDeck() {
       onPointerMove={handlePointerMove}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
-      className="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[560px] aspect-[4/5] sm:aspect-[1/1.12] flex items-center justify-center select-none my-6 lg:my-0"
+      className="relative w-full max-w-[280px] sm:max-w-[420px] lg:max-w-[560px] aspect-[1.05/1] sm:aspect-[1/1.12] flex items-center justify-center select-none my-3 sm:my-6 lg:my-0"
     >
       {/* Soft Ambient Luminous Halo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none transition-all duration-1000" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[420px] lg:w-[500px] h-[220px] sm:h-[420px] lg:h-[500px] bg-blue-600/15 rounded-full blur-[90px] pointer-events-none transition-all duration-1000" />
 
       {/* Layered 3D Kinetic Film Cards Stack */}
       <div className="relative w-full h-full flex items-center justify-center [perspective:1200px] [transform-style:preserve-3d]">
@@ -129,25 +129,25 @@ export default function HeroInteractiveGalleryDeck() {
           const isFront = offset === 0;
 
           // Responsive stack coordinate curve
-          const stackStepX = 22;
-          const stackStepY = -12;
-          const stackStepZ = -50;
-          const stackRotateZ = 3.5;
+          const stackStepX = 18;
+          const stackStepY = -10;
+          const stackStepZ = -45;
+          const stackRotateZ = 3.0;
 
-          let targetX = offset * stackStepX + smoothMouse.x * (18 - offset * 3);
-          let targetY = offset * stackStepY + smoothMouse.y * (14 - offset * 2);
+          let targetX = offset * stackStepX + smoothMouse.x * (16 - offset * 2.5);
+          let targetY = offset * stackStepY + smoothMouse.y * (12 - offset * 2);
           let targetZ = offset * stackStepZ;
-          let targetRotZ = offset * stackRotateZ + smoothMouse.x * 4;
-          let targetRotX = smoothMouse.y * -6;
-          let targetRotY = smoothMouse.x * 6;
+          let targetRotZ = offset * stackRotateZ + smoothMouse.x * 3.5;
+          let targetRotX = smoothMouse.y * -5;
+          let targetRotY = smoothMouse.x * 5;
           let targetScale = 1 - offset * 0.055;
-          let targetOpacity = offset > 2 ? 0.3 : 1 - offset * 0.18;
+          let targetOpacity = offset > 2 ? 0.25 : 1 - offset * 0.18;
           let zIndex = total - offset;
 
           if (isFront) {
-            targetX = smoothMouse.x * 14;
-            targetY = smoothMouse.y * 10;
-            targetRotZ = smoothMouse.x * 2;
+            targetX = smoothMouse.x * 12;
+            targetY = smoothMouse.y * 8;
+            targetRotZ = smoothMouse.x * 1.5;
             targetOpacity = 1;
           }
 
@@ -163,14 +163,14 @@ export default function HeroInteractiveGalleryDeck() {
                 willChange: "transform, opacity",
                 backfaceVisibility: "hidden",
               }}
-              className={`absolute w-[260px] sm:w-[350px] md:w-[390px] h-[350px] sm:h-[450px] md:h-[490px] rounded-3xl p-3 sm:p-4 bg-[#0B0F19]/95 backdrop-blur-2xl border-2 cursor-pointer shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(37,99,235,0.18)] flex flex-col justify-between overflow-hidden ${
+              className={`absolute w-[210px] sm:w-[300px] md:w-[350px] lg:w-[390px] h-[250px] sm:h-[370px] md:h-[440px] lg:h-[490px] rounded-2xl sm:rounded-3xl p-2 sm:p-3.5 lg:p-4 bg-[#0B0F19]/95 backdrop-blur-2xl border-2 cursor-pointer shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(37,99,235,0.18)] flex flex-col justify-between overflow-hidden ${
                 isFront
                   ? "border-white ring-2 ring-white/30"
                   : "border-white/30 hover:border-white/70 hover:scale-[1.02]"
               }`}
             >
               {/* Photo Frame with Thick White Border */}
-              <div className="relative w-full h-[76%] sm:h-[78%] rounded-2xl overflow-hidden bg-black border-2 border-white/20">
+              <div className="relative w-full h-[74%] sm:h-[78%] rounded-xl sm:rounded-2xl overflow-hidden bg-black border-2 border-white/20">
                 <img
                   src={work.image}
                   alt={work.title}
@@ -181,37 +181,37 @@ export default function HeroInteractiveGalleryDeck() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19]/85 via-transparent to-transparent" />
 
                 {/* Top Category Badge */}
-                <div className="absolute top-2.5 sm:top-3.5 left-2.5 sm:left-3.5 right-2.5 sm:right-3.5 flex items-center justify-between pointer-events-none">
-                  <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-white bg-black/85 backdrop-blur-md px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border-2 border-white/40 font-semibold shadow-md">
+                <div className="absolute top-1.5 sm:top-3.5 left-1.5 sm:left-3.5 right-1.5 sm:right-3.5 flex items-center justify-between pointer-events-none">
+                  <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-widest text-white bg-black/85 backdrop-blur-md px-2 sm:px-3.5 py-0.5 sm:py-1.5 rounded-full border-2 border-white/40 font-semibold shadow-md">
                     {work.category}
                   </span>
 
-                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-black/85 backdrop-blur-md border-2 border-white/40 text-white flex items-center justify-center shadow-md">
-                    <Maximize2 className="w-3 h-3" />
+                  <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-black/85 backdrop-blur-md border-2 border-white/40 text-white flex items-center justify-center shadow-md">
+                    <Maximize2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </div>
                 </div>
 
                 {/* Technical Spec Tag */}
-                <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3.5 pointer-events-none">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-blue-300 font-bold bg-[#0B0F19]/90 px-2 sm:px-2.5 py-0.5 rounded border border-white/30 tracking-wider">
+                <div className="absolute bottom-1.5 sm:bottom-3 left-1.5 sm:left-3.5 pointer-events-none">
+                  <span className="font-mono text-[7px] sm:text-[9px] text-blue-300 font-bold bg-[#0B0F19]/90 px-1.5 sm:px-2.5 py-0.5 rounded border border-white/30 tracking-wider">
                     {work.tag}
                   </span>
                 </div>
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="pt-2 px-1 flex items-center justify-between">
+              <div className="pt-1 sm:pt-2 px-0.5 sm:px-1 flex items-center justify-between">
                 <div>
-                  <h3 className="font-serif text-base sm:text-xl text-white font-normal truncate max-w-[170px] sm:max-w-[240px]">
+                  <h3 className="font-serif text-xs sm:text-base lg:text-xl text-white font-normal truncate max-w-[130px] sm:max-w-[200px] lg:max-w-[240px]">
                     {work.title}
                   </h3>
-                  <div className="flex items-center gap-1.5 text-slate-300 font-mono text-[10px] sm:text-[11px] mt-0.5">
-                    <MapPin className="w-3 h-3 text-blue-400" />
-                    <span className="truncate max-w-[150px] sm:max-w-none">{work.location}</span>
+                  <div className="flex items-center gap-1 sm:gap-1.5 text-slate-300 font-mono text-[9px] sm:text-[11px] mt-0.5">
+                    <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-400" />
+                    <span className="truncate max-w-[110px] sm:max-w-none">{work.location}</span>
                   </div>
                 </div>
 
-                <div className="font-mono text-[11px] sm:text-xs font-bold text-blue-400 bg-blue-600/20 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-white/30">
+                <div className="font-mono text-[9px] sm:text-xs font-bold text-blue-400 bg-blue-600/20 px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-white/30">
                   0{index + 1}
                 </div>
               </div>
@@ -221,8 +221,8 @@ export default function HeroInteractiveGalleryDeck() {
       </div>
 
       {/* Sleek Minimal Auto-Advance Progress Indicators */}
-      <div className="absolute -bottom-5 sm:-bottom-8 z-30 flex items-center gap-2 sm:gap-2.5 bg-[#0B0F19]/95 backdrop-blur-xl px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border-2 border-white/40 shadow-2xl">
-        <span className="font-mono text-[9px] sm:text-[10px] text-slate-400 font-semibold uppercase tracking-wider mr-0.5 sm:mr-1">
+      <div className="absolute -bottom-4 sm:-bottom-8 z-30 flex items-center gap-1.5 sm:gap-2.5 bg-[#0B0F19]/95 backdrop-blur-xl px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full border-2 border-white/40 shadow-2xl">
+        <span className="font-mono text-[8px] sm:text-[10px] text-slate-400 font-semibold uppercase tracking-wider mr-0.5">
           {isHovered ? "PAUSED" : "AUTO"}
         </span>
 
@@ -232,7 +232,7 @@ export default function HeroInteractiveGalleryDeck() {
             <button
               key={i}
               onClick={() => handleSelectCard(i)}
-              className="relative w-6 sm:w-10 h-1 sm:h-1.5 rounded-full overflow-hidden bg-white/20 hover:bg-white/40 transition-colors"
+              className="relative w-5 sm:w-10 h-1 sm:h-1.5 rounded-full overflow-hidden bg-white/20 hover:bg-white/40 transition-colors"
               title={`View Photograph 0${i + 1}`}
             >
               {isActive && (
@@ -247,7 +247,7 @@ export default function HeroInteractiveGalleryDeck() {
           );
         })}
 
-        <span className="font-mono text-[11px] sm:text-xs font-bold text-white ml-0.5 sm:ml-1">
+        <span className="font-mono text-[10px] sm:text-xs font-bold text-white ml-0.5">
           0{activeIndex + 1}
         </span>
       </div>

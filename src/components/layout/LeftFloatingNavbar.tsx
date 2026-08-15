@@ -78,22 +78,32 @@ export default function LeftFloatingNavbar() {
 
   return (
     <nav 
-      aria-label="Primary Vertical Navigation"
-      className={`fixed top-1/2 -translate-y-1/2 z-50 select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isScrolled
-          ? "left-2 sm:left-6 md:left-8 scale-90 sm:scale-100" // Floats detached in viewport
-          : "left-0 scale-90 sm:scale-100 origin-left" // Attached flush to left screen edge
-      }`}
-    >
-      {/* Dynamic Shell: Docks flat to screen on top, detaches into pill when scrolled */}
-      <div 
-        className={`relative bg-[#0B0F19]/95 backdrop-blur-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col items-center gap-1.5 sm:gap-2.5 shadow-2xl ${
+      aria-label="Primary Navigation"
+      className={`fixed z-50 select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
+        /* Mobile: Mid-Top Floating Horizontal Capsule */
+        top-3 left-1/2 -translate-x-1/2 
+        /* PC View: Left Edge Docked-then-Floating Vertical Bar */
+        md:top-1/2 md:-translate-y-1/2 md:translate-x-0 ${
           isScrolled
-            ? "p-1.5 sm:p-2 rounded-full border-2 border-white/40 hover:border-white/80 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(37,99,235,0.25)]"
-            : "pl-2.5 sm:pl-3 pr-3 sm:pr-3.5 py-4 sm:py-6 rounded-r-2xl border-t-2 border-r-2 border-b-2 border-l-0 border-white/30 hover:border-white/70 shadow-[10px_15px_40px_-10px_rgba(0,0,0,0.85)]"
-        }`}
+            ? "md:left-6 lg:left-8" // PC Floats detached in viewport
+            : "md:left-0" // PC Attached flush to left screen edge
+        }
+      `}
+    >
+      {/* Dynamic Shell: Horizontal pill on Mobile, Vertical docked/pill on PC */}
+      <div 
+        className={`relative bg-[#0B0F19]/95 backdrop-blur-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center shadow-2xl
+          /* Mobile Layout: Horizontal Row */
+          flex-row gap-1 sm:gap-1.5 px-2.5 py-1.5 rounded-full border-2 border-white/40 hover:border-white/80 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.9),0_0_20px_rgba(37,99,235,0.25)]
+          /* PC Layout: Vertical Column with Docked-then-Floating states */
+          md:flex-col md:gap-2.5 ${
+            isScrolled
+              ? "md:p-2 md:rounded-full md:border-2 md:border-white/40 md:hover:border-white/80 md:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(37,99,235,0.25)]"
+              : "md:pl-3 md:pr-3.5 md:py-6 md:rounded-r-2xl md:rounded-l-none md:border-t-2 md:border-r-2 md:border-b-2 md:border-l-0 md:border-white/30 md:hover:border-white/70 md:shadow-[10px_15px_40px_-10px_rgba(0,0,0,0.85)]"
+          }
+        `}
       >
-        {/* Top Starline Brand Logo */}
+        {/* Top/Left Starline Brand Logo */}
         <button
           onClick={() => scrollToSection("hero")}
           onMouseEnter={() => soundFx.playHover()}
@@ -103,15 +113,15 @@ export default function LeftFloatingNavbar() {
           <img
             src="/logo-transparent.png"
             alt="Starline Logo"
-            className="w-4 h-4 sm:w-5 sm:h-5 object-contain transition-transform duration-700 group-hover:rotate-45 drop-shadow-[0_0_8px_#3B82F6]"
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 object-contain transition-transform duration-700 group-hover:rotate-45 drop-shadow-[0_0_8px_#3B82F6]"
           />
         </button>
 
-        {/* Thick White Hairline Divider */}
-        <div className="w-3 sm:w-4 h-[2px] bg-white/40 rounded-full" />
+        {/* Hairline Divider */}
+        <div className="w-[2px] h-3 md:w-4 md:h-[2px] bg-white/40 rounded-full" />
 
         {/* Navigation Items Stack with Real-Time Active Tracking */}
-        <div className="flex flex-col items-center gap-1 sm:gap-2 relative">
+        <div className="flex flex-row md:flex-col items-center gap-1 sm:gap-1.5 md:gap-2 relative">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -122,7 +132,7 @@ export default function LeftFloatingNavbar() {
                   onClick={() => scrollToSection(item.id)}
                   onMouseEnter={() => soundFx.playHover()}
                   aria-label={item.label}
-                  className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-300 flex items-center justify-center border-2 ${
+                  className={`relative p-1.5 sm:p-2 md:p-2.5 rounded-full transition-all duration-300 flex items-center justify-center border-2 ${
                     isActive
                       ? "bg-blue-600 text-white border-white shadow-[0_0_16px_rgba(37,99,235,0.8)] scale-105"
                       : "border-transparent text-slate-300 hover:text-white hover:bg-white/10 hover:border-white/40"
@@ -131,8 +141,8 @@ export default function LeftFloatingNavbar() {
                   <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
 
-                {/* Right Flyout Glass Label on Hover */}
-                <div className="absolute left-full ml-3 sm:ml-4 pointer-events-none opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out z-50 whitespace-nowrap hidden sm:block">
+                {/* PC Right Flyout Glass Label on Hover */}
+                <div className="absolute left-full ml-3 sm:ml-4 pointer-events-none opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out z-50 whitespace-nowrap hidden md:block">
                   <div className="flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-[#0B0F19]/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl">
                     <span className="font-mono text-[10px] font-bold text-blue-400 tracking-wider">
                       {item.code}
@@ -150,8 +160,8 @@ export default function LeftFloatingNavbar() {
           })}
         </div>
 
-        {/* Thick White Hairline Divider */}
-        <div className="w-3 sm:w-4 h-[2px] bg-white/40 rounded-full" />
+        {/* Hairline Divider */}
+        <div className="w-[2px] h-3 md:w-4 md:h-[2px] bg-white/40 rounded-full" />
 
         {/* Audio Haptics Mute Toggle */}
         <button

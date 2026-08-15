@@ -6,11 +6,8 @@ import {
   Focus, 
   Globe, 
   Sliders, 
-  LayoutGrid, 
-  Volume2, 
-  VolumeX 
+  LayoutGrid
 } from "lucide-react";
-import { soundFx } from "../../utils/sound";
 
 interface NavItem {
   id: string;
@@ -31,7 +28,6 @@ const navItems: NavItem[] = [
 export default function LeftFloatingNavbar() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
 
   // Track scroll position to detach navbar when scrolling down and update active section
   useEffect(() => {
@@ -60,19 +56,9 @@ export default function LeftFloatingNavbar() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    soundFx.playClick(1100);
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleMuteToggle = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const muted = soundFx.toggleMute();
-    setIsMuted(muted);
-    if (!muted) {
-      soundFx.playFocusLock();
     }
   };
 
@@ -94,7 +80,7 @@ export default function LeftFloatingNavbar() {
       <div 
         className={`relative bg-[#0B0F19]/95 backdrop-blur-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center shadow-2xl
           /* Mobile Layout: Horizontal Row */
-          flex-row gap-1 sm:gap-1.5 px-2.5 py-1.5 rounded-full border-2 border-white/40 hover:border-white/80 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.9),0_0_20px_rgba(37,99,235,0.25)]
+          flex-row gap-1 sm:gap-1.5 px-3 py-1.5 rounded-full border-2 border-white/40 hover:border-white/80 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.9),0_0_20px_rgba(37,99,235,0.25)]
           /* PC Layout: Vertical Column with Docked-then-Floating states */
           md:flex-col md:gap-2.5 ${
             isScrolled
@@ -106,7 +92,6 @@ export default function LeftFloatingNavbar() {
         {/* Top/Left Starline Brand Logo */}
         <button
           onClick={() => scrollToSection("hero")}
-          onMouseEnter={() => soundFx.playHover()}
           className="group relative p-1.5 sm:p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 border-2 border-white/40 hover:border-white flex items-center justify-center shadow-lg"
           title="Starline Studio Overview"
         >
@@ -130,7 +115,6 @@ export default function LeftFloatingNavbar() {
               <div key={item.id} className="relative group flex items-center">
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  onMouseEnter={() => soundFx.playHover()}
                   aria-label={item.label}
                   className={`relative p-1.5 sm:p-2 md:p-2.5 rounded-full transition-all duration-300 flex items-center justify-center border-2 ${
                     isActive
@@ -159,24 +143,6 @@ export default function LeftFloatingNavbar() {
             );
           })}
         </div>
-
-        {/* Hairline Divider */}
-        <div className="w-[2px] h-3 md:w-4 md:h-[2px] bg-white/40 rounded-full" />
-
-        {/* Audio Haptics Mute Toggle */}
-        <button
-          onClick={handleMuteToggle}
-          onMouseEnter={() => soundFx.playHover()}
-          aria-label={isMuted ? "Unmute Sound" : "Mute Sound"}
-          className={`p-1.5 sm:p-2 rounded-full transition-all duration-300 border-2 ${
-            isMuted 
-              ? "text-slate-600 hover:text-slate-400 border-transparent bg-transparent" 
-              : "text-slate-300 hover:text-white bg-white/5 hover:bg-white/15 border-white/30 hover:border-white/70"
-          }`}
-          title={isMuted ? "Unmute Camera Sounds" : "Mute Camera Sounds"}
-        >
-          {isMuted ? <VolumeX className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> : <Volume2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
-        </button>
       </div>
     </nav>
   );
